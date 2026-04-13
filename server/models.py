@@ -11,6 +11,12 @@ class Exercise(db.Model):
     equipment_needed = db.Column(db.Boolean)
     
     workout_exercises = db.relationship('WorkoutExercise', back_populates='exercise', cascade='all, delete-orphan')
+    
+    @validates('name')
+    def validate_name(self, key, value):
+        if not value or len(value) < 2:
+            raise ValueError("Exercise names should be longer than 2 letters.")
+        return value
 
 class Workout(db.Model):
     __tablename__ = 'workouts'
@@ -21,6 +27,11 @@ class Workout(db.Model):
     notes = db.Column(db.String)
     
     workout_exercises = db.relationship('WorkoutExercise', back_populates='workout', cascade='all, delete-orphan')
+    
+    @validates('duration_minutes')
+    def validate_minutes(self, key, value):
+        if not value or value < 0:
+            raise ValueError("Exercises duration must be greater than 0")
 
 class WorkoutExercise(db.Model):
     __tablename__ = 'workout_exercises'
@@ -35,3 +46,12 @@ class WorkoutExercise(db.Model):
     workout = db.relationship('Workout',back_populates='workout_exercises')
     
     workout = db.relationship('Exercise',back_populates='workout_exercises')
+    
+    @validates('reps')
+    def validate_reps(self,key, value):
+        if not value or value <= 0:
+            raise ValueError("Reps cannot be less than 1")
+    @validates('sets')
+    def validate_reps(self,key, value):
+        if not value or value <= 0:
+            raise ValueError("Sets cannot be less than 1")
