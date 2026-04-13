@@ -57,12 +57,12 @@ class WorkoutExercise(db.Model):
 
     @validates('reps')
     def validate_reps(self, key, value):
-        if value is None or value < 1:
-            raise ValueError("Reps must be at least 1")
+        if value is not None and value < 1:
+            raise ValueError("Reps must be at least 1 if provided")
         return value
 
     @validates('sets')
     def validate_sets(self, key, value):
-        if value is None or value < 1:
-            raise ValueError("Sets must be at least 1")
+        if value is not None and value < 1:
+            raise ValueError("Sets must be at least 1 if provided")
         return value
