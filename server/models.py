@@ -35,23 +35,34 @@ class Workout(db.Model):
 
 class WorkoutExercise(db.Model):
     __tablename__ = 'workout_exercises'
-    
+
     id = db.Column(db.Integer, primary_key=True)
+
     reps = db.Column(db.Integer)
     sets = db.Column(db.Integer)
     duration_seconds = db.Column(db.Integer)
+
     workout_id = db.Column(db.Integer, db.ForeignKey('workouts.id'))
     exercise_id = db.Column(db.Integer, db.ForeignKey('exercises.id'))
-    
-    workout = db.relationship('Workout',back_populates='workout_exercises')
-    
-    workout = db.relationship('Exercise',back_populates='workout_exercises')
-    
+
+    workout = db.relationship(
+        'Workout',
+        back_populates='workout_exercises'
+    )
+
+    exercise = db.relationship(
+        'Exercise',
+        back_populates='workout_exercises'
+    )
+
     @validates('reps')
-    def validate_reps(self,key, value):
-        if not value or value <= 0:
-            raise ValueError("Reps cannot be less than 1")
+    def validate_reps(self, key, value):
+        if value is None or value < 1:
+            raise ValueError("Reps must be at least 1")
+        return value
+
     @validates('sets')
-    def validate_reps(self,key, value):
-        if not value or value <= 0:
-            raise ValueError("Sets cannot be less than 1")
+    def validate_sets(self, key, value):
+        if value is None or value < 1:
+            raise ValueError("Sets must be at least 1")
+        return value
