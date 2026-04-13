@@ -34,4 +34,4 @@ class WorkoutExercise(db.Model):
     
     workout = db.relationship('Workout',back_populates='workout_exercises')
     
-    workout = db.relationship('Exercise',back_populates='workout_exercises')
+    excercise = db.relationship('Exercise',back_populates='workout_exercises')
