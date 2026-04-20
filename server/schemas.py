@@ -1,5 +1,4 @@
 from marshmallow import Schema, fields, validates, ValidationError, post_load
-from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 from models import Exercise, Workout, WorkoutExercise
 
 class ExerciseSchema(Schema):
@@ -23,6 +22,8 @@ class ExerciseSchema(Schema):
     def make_exercise(self, data, **kwargs):
         return Exercise(**data)
     
+    # This should create an Exercise Object and so on for the other schemas.
+    
 class WorkoutSchema(Schema):
     id = fields.Int(dump_only=True)
     date = fields.Date(required=True)
@@ -41,8 +42,8 @@ class WorkoutSchema(Schema):
     
 class WorkoutExerciseSchema(Schema):
     id = fields.Int(dump_only=True)
-    workout_id = fields.Int(required=True)
-    exercise_id = fields.Int(required=True)
+    workout_id = fields.Int()
+    exercise_id = fields.Int()
     reps = fields.Int(allow_none=True)
     sets = fields.Int(allow_none=True)
     duration_seconds = fields.Int(allow_none=True)
