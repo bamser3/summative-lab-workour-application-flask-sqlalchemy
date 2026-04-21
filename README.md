@@ -14,30 +14,23 @@ workouts with sets, reps, or duration.
 
 ```bash
 git clone https://github.com/bamser3/summative-lab-workout-application-flask-sqlalchemy.git`
-```
-Then:
-```bash
+
 cd summative-lab-workout-application-flask-sqlalchemy
+
 ```
 2.  Install dependencies:
 ```bash
 pipenv install
-```
 
-```bash
 pipenv shell
 ```
 
 3.  Set up the database:
 ```bash
-cd server flask db init flask db migrate -m "initial migration"
-```
-Then:
-```bash
+cd server
+flask db migrate -m "initial migration"
 flask db upgrade
 ```
-
-
 4.  Seed the database:
 ```bash
 python seed.py
@@ -45,15 +38,8 @@ python seed.py
 
 ------------------------------------------------------------------------
 
-## Run Instructions
+## Run Flask Server
 ```bash
-cd server
-```
-
-From the `server` folder:
-
-```bash
-
 flask --app app run --port 5555 --debug
 ```
 ------------------------------------------------------------------------
@@ -65,13 +51,13 @@ flask --app app run --port 5555 --debug
 -   GET /workouts\
     Get all workouts
 
--   GET /workouts/`<id>`{=html}\
+-   GET /workouts/`<id>`\
     Get a single workout
 
 -   POST /workouts\
     Create a workout
 
--   DELETE /workouts/`<id>`{=html}\
+-   DELETE /workouts/`<id>`\
     Delete a workout
 
 ------------------------------------------------------------------------
@@ -87,7 +73,7 @@ flask --app app run --port 5555 --debug
 -   POST /exercises\
     Create an exercise
 
--   DELETE /exercises/`<id>`{=html}\
+-   DELETE /exercises/`<id>`\
     Delete an exercise
 
 ------------------------------------------------------------------------
@@ -95,7 +81,7 @@ flask --app app run --port 5555 --debug
 ### WorkoutExercises (Join Table)
 
 -   POST
-    /workouts/`<workout_id>`{=html}/exercises/`<exercise_id>`{=html}/workout_exercises\
+    /workouts/`<workout_id>`/exercises/`<exercise_id>`/workout_exercises\
     Add an exercise to a workout with reps, sets, or duration
 
 ------------------------------------------------------------------------
